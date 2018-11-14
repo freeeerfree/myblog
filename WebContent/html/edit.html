@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+    <style type="text/css">
+        .toolbar {
+            border: 1px solid #ccc;
+        }
+        .text {
+            border: 1px solid #ccc;
+            height: 400px;
+        }
+    </style>
+<body ng-app="app" ng-controller="submit">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2">
+	<ul class="nav nav-pills nav-stacked">
+  <li class="active"><a href="#">编辑</a></li>
+  <li><a href="#">我的主页</a></li>
+  <li><a href="#">文章管理</a></li>
+  <li><a href="#">分类管理</a></li>
+    </ul>
+        </div>
+        <div class="col-sm-8">
+    <form role="form">
+	<div class="form-group">
+		<input type="text" class="form-control" id="title" 
+			   placeholder="请输入标题">
+	</div>
+        <div class="form-group">
+        <input type="text" class="form-control" id="showMessage" 
+              placeholder="请输入简介">
+    </div>
+    </form>
+    <div id="div1" class="toolbar">
+    </div>
+    <div style="padding: 5px 0; color: #ccc"></div>
+    <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+    </div>
+<div style="width:128px;">
+<form role="form">
+  <div class="form-group">
+    <label for="name">选择分类</label>
+    <select class="form-control" ng-model="selectedName" ng-init="selectedName='请选择'">
+      <option>请选择</option>
+      <option ng-repeat="x in navs" >{{x}}</option>
+    </select>
+    <p ng-if="selectedName=='请选择'">请选择分类</p>
+    <p ng-if="selectedName!='请选择'"></p>
+  </div>
+</form>
+</div>
+<div style="display:block;margin:10px;">
+<button type="button" class="btn btn-primary" id="submit" ng-click="submit()">发布文章</button>
+<button type="button" class="btn btn-primary" id="save">保存为草稿</button>
+</div>
+       
+</div>
+
+ </div>
+ </div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#div1', '#div2')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.customConfig.uploadImgServer = 'UpdatePicServlet'
+        editor.create()
+       
+    var app=angular.module("app",['ngRoute']);
+    app.controller("submit",function($scope,$http){
+    	$http({
+    		method:'post',
+    		url:'SortServlet',
+    		headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset:utf-8' }
+    	}).then(function(request){
+    		$scope.navs=request.data;
+    	});
+        $scope.submit=function(){
+        	var showMessage=$('#showMessage').val();
+            var title=$('#title').val();
+            var article=editor.txt.html();
+            var sort=$scope.selectedName;
+            if($scope.selectedName=="请选择"){
+            	console.log("请选择");
+            }
+            else{
+            $http({method:'post',
+                   url:'AddArticleServlet',
+                   data:$.param({title:title,showMessage:showMessage,article:article,sort:sort}),
+                   headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset:utf-8' }
+               }).then(function(request){}); 
+            }
+        }
+    });
+    
+    </script>
+</body>
+</html>

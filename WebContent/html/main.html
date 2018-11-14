@@ -1,0 +1,20 @@
+<div class="container" style="width:1180px;margin:auto;position:relative;top:-10px;">
+  <div class="row">
+  <div class="col-sm-2">
+<div class="left_nav" style="margin:20px;">
+<ul class="nav nav-pills nav-stacked">
+  <li  ng-class={"active":$index!=defalut,"active":$index==default} ng-repeat="x in navs"  ng-click="onClick($index)" style="text-align:center;"><a href="" >{{x}}</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-8" >
+         <div style="position: relative;width:100%;height:178px;box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);border-radius: 4px;margin-top: 20px;padding:20px;" ng-repeat="x in articles">
+          <p style="margin:8px 0px;"><a style="color:green;">BG</a>&nbsp;&nbsp;·&nbsp;&nbsp;{{x.date}}</p>
+          <h4 style="margin-bottom:10px;"><a style="color: #555;text-decoration: none;font-size: 2.5rem;word-wrap: break-word;word-break: break-all;    font-weight: bold;">{{x.title}}</a></h4>
+          <div style="height:42px; border-bottom:10px"><p style="height:40px;display:block;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;">{{x.showMessage}}</p></div>
+          <div ><a>阅读 123</a> · <a>评论</a> · <a>喜欢 1</a><a href="article/id/{{x.id}}"style="width:80px;height:30px;position: absolute;text-decoration: none;right:20px;bottom: 15px;display: block;line-height: 30px;text-align: center;color: #fff;background: #009a61;border-radius: 5px;cursor:pointer;">点击阅读</a></div>
+         </div> 
+         
+</div>
+</div>
+</div>

@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MyBlog</title>
+<base href="/maventest/">
+</head >
+<body ng-app="app" ng-controller="sort">
+<nav class="navbar navbar-default" role="navigation" >
+	<div class="container-fluid" style="width:1280px;margin:auto;">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="/myblog/">勒鑫</a>
+	</div>
+	<div >
+		<ul class="nav navbar-nav">
+			<li><a href="/myblog/">首页</a></li>
+			<li><a href="frontend" ng-repeat="x in sorts" class="sort">{{x.name}}</a></li>
+		</ul>
+	</div>
+	</div>
+</nav>
+<div ng-view></div>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/blog.css" />		
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>
