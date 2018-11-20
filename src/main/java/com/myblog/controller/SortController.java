@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myblog.service.SortService;
 
 
-@RequestMapping(value="/blog")
+@RequestMapping(value="/sort")
 @RestController
 public class SortController {
 	  @Autowired
@@ -21,8 +21,6 @@ public class SortController {
 	   }
 	   @RequestMapping(value="/{headSort}",method=RequestMethod.POST)
 	   public List<String> getLeftSort(@PathVariable String headSort) {
-		  System.out.println("我在运行");
-		  System.out.println(sortService.getLeftSort(headSort).get(0));
 		return sortService.getLeftSort(headSort);
                    
 	   }

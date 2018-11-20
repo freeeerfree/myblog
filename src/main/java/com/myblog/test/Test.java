@@ -98,8 +98,8 @@ public class Test {
       
 /*	List<Sort> sorts=sdi.getAllSort();
 		System.out.println(sorts.get(0).getLeftSort());*/
-        SortDaoImpl sdi=(SortDaoImpl) ac.getBean("sortDaoImpl");
-        System.out.println(sdi.getLeftSort("frontend").get(0));
+        ArticleDaoImpl adi=(ArticleDaoImpl) ac.getBean("articleDaoImpl");
+        System.out.println(adi.getArticleContent(1));
         
 /*		Sort sort=new Sort(15,"2","3");
 		sdi.addSort(sort);*/

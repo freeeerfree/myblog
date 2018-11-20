@@ -23,15 +23,6 @@ public class Article {
 	@Column(name="access")
     private int access;
     public Article() {}
-    public Article(Date date,String sort,String title,String showMessage,String article,int praise,int access) {
-   	   this.date=date;
-   	   this.sort=sort;
-       this.title=title;
-       this.showMessage=showMessage;
-       this.article=article;
-       this.praise=praise;
-       this.access=access;
-    }
     public int getId() {
    	 return this.id;
     }

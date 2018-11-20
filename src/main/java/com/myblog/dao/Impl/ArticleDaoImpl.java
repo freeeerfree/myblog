@@ -1,91 +1,59 @@
 package com.myblog.dao.Impl;
 
 import java.util.List;
-
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.mapping.Map;
+import org.hibernate.transform.Transformers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myblog.dao.ArticleDao;
 import com.myblog.model.Article;
-
+@Repository
+@Transactional
 public class ArticleDaoImpl implements ArticleDao{
-	private static SessionFactory factory;
+	@Autowired
+	private  SessionFactory sessionFactory;
 	Session session;
 	Transaction tx;
-	List<Article> articles;
+	List<String> sorts;
 	Criteria cr;
-    public ArticleDaoImpl () {
-    	 factory=new Configuration().configure().buildSessionFactory(); 
-    }
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 	@Override
 	public List<Article> getAllArticleMessages() {
 		// TODO Auto-generated method stub
-	try {
-		session=factory.openSession();
-		tx=session.beginTransaction();
-		articles= session.createQuery("FROM Article").list();
-		tx.commit();
-	}catch(HibernateException e) {
-		if(tx!=null) {
-			tx.rollback();
-			e.printStackTrace();
-		}
-	}finally{
-		session.close();
+		return getSession().createQuery("FROM Article").list();	
 	}
-		return articles;	
-	}
-
-
 	@Override
-	public List<Article> getSortArticleMessages(String sort) {
+	public List<Article> getSortArticleMessages(String leftSort) {
 		// TODO Auto-generated method stub
-		try {
-			session=factory.openSession();
-			tx=session.beginTransaction();	
-			cr=session.createCriteria(Article.class);
-            articles=cr.add(Restrictions.eq("sort",sort)).list();
-			tx.commit();
-		}catch(HibernateException e) {
-			if(tx!=null) {
-				tx.rollback();
-				e.printStackTrace();
-			}
-		}finally{
-			session.close();
-		}
-			return articles;	
-		
+		Query query=getSession().createQuery("FROM Article article where article.sort=:leftSort");
+		query.setString("leftSort", leftSort);
+		return query.list();
 	}
-
 	@Override
 	public void writeArticle(Article article) {
 		// TODO Auto-generated method stub
-	try {
-		session=factory.openSession();
-		tx=session.beginTransaction();
-		session.save(article);
-		tx.commit();
+		
 	}
-	catch(HibernateException e){
-	   if(tx!=null) {
-		   tx.rollback();
-	   }
-	}
-	finally {
-		session.close();
-	}
+	@Override
+	public List<Map> getArticleContent(int id) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("deprecation")
+		Query query=getSession().createSQLQuery("select id,article,date,sort FROM Article where id=:id").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		query.setInteger("id", id);
+		return query.list();
 	}
 
-	@Override
-	public Article getArticleContent(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

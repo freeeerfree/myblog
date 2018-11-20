@@ -24,6 +24,8 @@
     </bean>  
     <bean id="sortDaoImpl" class="com.myblog.dao.Impl.SortDaoImpl"></bean>
     <bean id="sortService" class="com.myblog.service.SortService"></bean>
+    <bean id="articleDaoImpl" class="com.myblog.dao.Impl.ArticleDaoImpl"></bean>
+    <bean id="articleService" class="com.myblog.service.ArticleService"></bean>
     <!-- 开启注解扫描 -->
     <context:component-scan base-package="com.myblog"/>
   

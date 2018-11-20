@@ -14,5 +14,6 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
          <mapping class="com.myblog.model.Sort" />
+         <mapping class="com.myblog.model.Article" />
           </session-factory>
       </hibernate-configuration>    

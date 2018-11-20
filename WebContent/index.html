@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MyBlog</title>
-<base href="/maventest/">
+<base href="/myblog/">
 </head >
 <body ng-app="app" ng-controller="sort">
 <nav class="navbar navbar-default" role="navigation" >
@@ -12,8 +12,7 @@
 	</div>
 	<div >
 		<ul class="nav navbar-nav">
-			<li><a href="/myblog/">首页</a></li>
-			<li><a href="frontend" ng-repeat="x in sorts" class="sort">{{x.name}}</a></li>
+			<li  ng-repeat="x in sorts" style="float:left;" ng-class={"active":$index!=hdefalut,"active":$index==hdefault} ng-click="getActive($index)"><a href="{{x.sort}}">{{x.name}}</a></li>
 		</ul>
 	</div>
 	</div>
